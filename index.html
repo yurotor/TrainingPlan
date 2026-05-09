@@ -68,6 +68,7 @@
   .block-head .ttl { font-size: 16px; font-weight: 600; }
 
   .block-body { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: start; }
+  .block-body.solo { grid-template-columns: 1fr; }
   ul.drills { margin: 0; padding: 0; list-style: none; }
   ul.drills li { padding: 9px 0; font-size: 15.5px; border-bottom: 1px dashed #ededea; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
   ul.drills li:last-child { border-bottom: 0; }
@@ -121,188 +122,187 @@ const VIDEOS = {
   '1820919092644683':{ url: 'https://www.facebook.com/watch/?v=1820919092644683',            uploader: 'ElevatePerformance',  duration: 48 },
 };
 
+// Reusable block defs — referenced by id from each program.
+const BLOCKS = {
+  v1: {
+    title: 'שליטה בסיסית',
+    total: '~10 דק׳',
+    videoId: '861552193637806',
+    drills: [
+      { he: 'משיכה ודחיפה',          en: 'pull & push',                reps: '×100',          time: '~3 דק׳' },
+      { he: 'גרירה ובעיטה',           en: 'drag & kick',                reps: '×100',          time: '~3 דק׳' },
+      { he: 'משיכה ודחיפה רגל אחת',  en: 'single-leg pull & push',     reps: '×75 לכל רגל',   time: '~4 דק׳' },
+    ],
+  },
+  v4: {
+    title: 'נגיעות ודחיפות',
+    total: '~9 דק׳',
+    videoId: '1503901278107802',
+    drills: [
+      { he: 'נגיעות בקצה הנעל',  en: 'toe taps',     reps: '×50', time: '~2 דק׳' },
+      { he: 'נגיעות פנים',          en: 'inside',       reps: '×50', time: '~2 דק׳' },
+      { he: 'דחיפה ומשיכה',        en: 'push & pull',  reps: '×50', time: '~2 דק׳' },
+      { he: 'סטפ-אובר',             en: 'stepover',     reps: '×50', time: '~3 דק׳' },
+    ],
+  },
+  v2: {
+    title: 'גרירות V',
+    total: '~8 דק׳',
+    videoId: '960332706917482',
+    drills: [
+      { he: 'גרירות V',                       en: 'V-drags',                  reps: '×20 לכל רגל',     time: '~2 דק׳' },
+      { he: 'גרירת V עם העברה',                en: 'V-drag & pass',            reps: '×30',              time: '~2 דק׳' },
+      { he: 'ריבוע סביב קונוס',                en: 'drag square around cone',  reps: '×10 לכל רגל',     time: '~2 דק׳' },
+      { he: 'גרירת V ודחיפה עם השרוכים',       en: 'V-drag & lace push',       reps: '×10 לכל רגל',     time: '~2 דק׳' },
+    ],
+  },
+  v5: {
+    title: 'גרירות וחיתוכים',
+    total: '~4 דק׳',
+    videoId: '761338307059529',
+    drills: [
+      { he: 'גרירות פנים-חוץ',  en: 'inside/outside drags', reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
+      { he: 'חיתוכי V',           en: 'V-cuts',               reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
+    ],
+  },
+  v7: {
+    title: 'חיתוכי L',
+    total: '~8 דק׳',
+    videoId: '1495785262207473',
+    drills: [
+      { he: 'חיתוכי L',          en: 'L-cuts',        reps: '3 × 25', time: '~3 דק׳' },
+      { he: 'חיתוכי V',          en: 'V-cuts',        reps: '3 × 25', time: '~3 דק׳' },
+      { he: 'משיכה ודחיפה',     en: 'pull & push',   reps: '3 × 30', time: '~2 דק׳' },
+    ],
+  },
+  v3: {
+    title: 'סטפ-אוברים',
+    total: '~12 דק׳',
+    videoId: '925316350210427',
+    drills: [
+      { he: 'סטפ-אובר קלאסי',                  en: 'classic stepover',  reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
+      { he: 'צעד חיצוני שמאל / ימין',          en: 'outside step L/R',  reps: '5 × 30 שנ׳ לכל רגל',  time: '~6 דק׳' },
+      { he: 'צעד חיצוני עם שתיהן',              en: 'outside both',      reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
+    ],
+  },
+  v6: {
+    title: 'סטפ-אוברים ללא הסתכלות',
+    total: '~9 דק׳',
+    videoId: '1284638393851240',
+    drills: [
+      { he: 'סטפ-אוברים ללא הסתכלות',  en: 'no-look stepovers',  reps: '3 × 20 לכל רגל',  time: '~3 דק׳' },
+      { he: 'חציות',                       en: 'crossovers',         reps: '3 × 25',           time: '~3 דק׳' },
+      { he: 'סטפ-אוברים כפולים',           en: 'double stepovers',   reps: '3 × 20',           time: '~3 דק׳' },
+    ],
+  },
+  v14: {
+    title: 'קופסת 4×4',
+    total: '~10 דק׳',
+    videoId: '959886606388204',
+    drills: [
+      { he: 'רגל ימין בלבד',     en: 'right foot only',     reps: '×10',  time: '~1.5 דק׳' },
+      { he: 'רגל שמאל בלבד',    en: 'left foot only',      reps: '×10',  time: '~1.5 דק׳' },
+      { he: 'נגיעות פנים',         en: 'inside touches',     reps: '×10',  time: '~1.5 דק׳' },
+      { he: 'נגיעות חוץ',          en: 'outside touches',    reps: '×10',  time: '~1.5 דק׳' },
+      { he: 'קרוקטות',             en: 'croquetas',           reps: '×10',  time: '~2 דק׳' },
+      { he: 'גלגולי כדור',         en: 'ball rolls',          reps: '×10',  time: '~2 דק׳' },
+    ],
+  },
+  v11: {
+    title: 'כדרור צד-לצד',
+    total: '~3 דק׳',
+    videoId: '2071498600080315',
+    drills: [
+      { he: 'כדרור צד-לצד',  en: 'side-to-side dribble',  reps: '3 × 20',  time: '~3 דק׳' },
+    ],
+  },
+  v15: {
+    title: 'קופסת 1×1 מ׳',
+    total: '~11 דק׳',
+    videoId: '1820919092644683',
+    drills: [
+      { he: 'צעדים עם הסוליה',           en: 'sole steps',          reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'נגיעות פנים',                 en: 'inside taps',         reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'עצירות פנים',                 en: 'inside stops',        reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'עצירות עם השרוכים',         en: 'lace stops',          reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'פנים-חוץ',                    en: 'inside-outsiders',    reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'קרוקטות',                     en: 'croquetas',           reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'גלגולי כדור',                 en: 'ball rolls',          reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'פניות עם משיכה אחורה',     en: 'pull-back turns',     reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'פייקים חיצוניים',             en: 'outside fakes',       reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'העברות מזויפות',              en: 'fake passes',         reps: '30 שנ׳',  time: '~1 דק׳' },
+      { he: 'נגיעות V',                    en: 'V-taps',              reps: '30 שנ׳',  time: '~1 דק׳' },
+    ],
+  },
+  v12: {
+    title: 'ז׳ונגלים מעל קונוסים',
+    total: '~3 דק׳',
+    videoId: '1285755459720130',
+    drills: [
+      { he: 'ז׳ונגלים מעל קונוסים',  en: 'juggling above cones',  reps: '3 × 20',  time: '~3 דק׳' },
+    ],
+  },
+  juggling: {
+    title: 'הקפצות',
+    total: '~10 דק׳',
+    videoId: null,
+    drills: [
+      { he: 'רגל ימין',               en: 'right foot',         reps: '×50',  time: '~1.5 דק׳' },
+      { he: 'רגל שמאל',               en: 'left foot',          reps: '×50',  time: '~1.5 דק׳' },
+      { he: 'לסירוגין ימין-שמאל',    en: 'alternating R/L',    reps: '×50',  time: '~1.5 דק׳' },
+      { he: 'ברך ימין',                en: 'right knee',         reps: '×30',  time: '~1 דק׳' },
+      { he: 'ברך שמאל',               en: 'left knee',          reps: '×30',  time: '~1 דק׳' },
+      { he: 'ראש',                      en: 'head',                reps: '×30',  time: '~1.5 דק׳' },
+      { he: 'סביב העולם',             en: 'around the world',   reps: '×30',  time: '~2 דק׳' },
+    ],
+  },
+};
+
 const PROGRAMS = {
   sunday: {
     day: 'ראשון',
     title: 'יסודות שליטה בכדור',
     intro: 'פתיחת השבוע. בונה תחושת כדור עם משיכות, דחיפות ונגיעות בסיסיות. שתי רגליים, איכות לפני כמות.',
-    total: '~25 דק׳',
+    total: '~46 דק׳',
     warmup: 'כדרור קל ונגיעות עם הסוליה — 5 דק׳',
-    blocks: [
-      {
-        label: 'חלק א׳',
-        title: 'שליטה בסיסית',
-        total: '~10 דק׳',
-        videoId: '861552193637806',
-        drills: [
-          { he: 'משיכה ודחיפה',          en: 'pull & push',                reps: '×100',          time: '~3 דק׳' },
-          { he: 'גרירה ובעיטה',           en: 'drag & kick',                reps: '×100',          time: '~3 דק׳' },
-          { he: 'משיכה ודחיפה רגל אחת',  en: 'single-leg pull & push',     reps: '×75 לכל רגל',   time: '~4 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ב׳',
-        title: 'נגיעות ודחיפות',
-        total: '~9 דק׳',
-        videoId: '1503901278107802',
-        drills: [
-          { he: 'נגיעות בקצה הנעל',  en: 'toe taps',     reps: '×50', time: '~2 דק׳' },
-          { he: 'נגיעות פנים',          en: 'inside',       reps: '×50', time: '~2 דק׳' },
-          { he: 'דחיפה ומשיכה',        en: 'push & pull',  reps: '×50', time: '~2 דק׳' },
-          { he: 'סטפ-אובר',             en: 'stepover',     reps: '×50', time: '~3 דק׳' },
-        ],
-      },
-    ],
+    blocks: ['v1', 'v4', 'v11', 'v6', 'juggling'],
   },
-
   monday: {
     day: 'שני',
     title: 'גרירות V וחיתוכים',
     intro: 'יום טכני. גרירות V, חיתוכי V ו-L, ושליטה בכיוון. דורש דיוק ולא מהירות.',
-    total: '~25 דק׳',
+    total: '~45 דק׳',
     warmup: 'כדרור קל וריצה — 5 דק׳',
-    blocks: [
-      {
-        label: 'חלק א׳',
-        title: 'גרירות V',
-        total: '~8 דק׳',
-        videoId: '960332706917482',
-        drills: [
-          { he: 'גרירות V',                       en: 'V-drags',                  reps: '×20 לכל רגל',     time: '~2 דק׳' },
-          { he: 'גרירת V עם העברה',                en: 'V-drag & pass',            reps: '×30',              time: '~2 דק׳' },
-          { he: 'ריבוע סביב קונוס',                en: 'drag square around cone',  reps: '×10 לכל רגל',     time: '~2 דק׳' },
-          { he: 'גרירת V ודחיפה עם השרוכים',       en: 'V-drag & lace push',       reps: '×10 לכל רגל',     time: '~2 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ב׳',
-        title: 'גרירות וחיתוכים',
-        total: '~4 דק׳',
-        videoId: '761338307059529',
-        drills: [
-          { he: 'גרירות פנים-חוץ',  en: 'inside/outside drags', reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
-          { he: 'חיתוכי V',           en: 'V-cuts',               reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ג׳',
-        title: 'חיתוכי L',
-        total: '~8 דק׳',
-        videoId: '1495785262207473',
-        drills: [
-          { he: 'חיתוכי L',          en: 'L-cuts',        reps: '3 × 25', time: '~3 דק׳' },
-          { he: 'חיתוכי V',          en: 'V-cuts',        reps: '3 × 25', time: '~3 דק׳' },
-          { he: 'משיכה ודחיפה',     en: 'pull & push',   reps: '3 × 30', time: '~2 דק׳' },
-        ],
-      },
-    ],
+    blocks: ['v2', 'v5', 'v7', 'v1', 'juggling'],
   },
-
   tuesday: {
     day: 'שלישי',
     title: 'סטפ-אוברים ופייקים',
     intro: 'תנועות 1 על 1. הקונוסים הם "המגנים". מהירות ביצוע חשובה — אבל הנגיעה חייבת להיות נקייה.',
-    total: '~25 דק׳',
+    total: '~45 דק׳',
     warmup: 'כדרור קל בריבוע 5×5 מ׳ — 5 דק׳',
-    blocks: [
-      {
-        label: 'חלק א׳',
-        title: 'סטפ-אוברים',
-        total: '~12 דק׳',
-        videoId: '925316350210427',
-        drills: [
-          { he: 'סטפ-אובר קלאסי',                  en: 'classic stepover',  reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
-          { he: 'צעד חיצוני שמאל / ימין',          en: 'outside step L/R',  reps: '5 × 30 שנ׳ לכל רגל',  time: '~6 דק׳' },
-          { he: 'צעד חיצוני עם שתיהן',              en: 'outside both',      reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ב׳',
-        title: 'סטפ-אוברים ללא הסתכלות',
-        total: '~9 דק׳',
-        videoId: '1284638393851240',
-        drills: [
-          { he: 'סטפ-אוברים ללא הסתכלות',  en: 'no-look stepovers',  reps: '3 × 20 לכל רגל',  time: '~3 דק׳' },
-          { he: 'חציות',                       en: 'crossovers',         reps: '3 × 25',           time: '~3 דק׳' },
-          { he: 'סטפ-אוברים כפולים',           en: 'double stepovers',   reps: '3 × 20',           time: '~3 דק׳' },
-        ],
-      },
-    ],
+    blocks: ['v3', 'v6', 'v4', 'juggling'],
   },
-
   wednesday: {
     day: 'רביעי',
     title: 'קופסת 4×4 קונוסים',
     intro: 'שליטה במרחב צמוד. קופסה של 4 על 4 קונוסים. דיוק ושינוי כיוון מהיר.',
-    total: '~20 דק׳',
+    total: '~47 דק׳',
     warmup: 'ריצה קלה ונגיעות עם הסוליה — 5 דק׳',
-    blocks: [
-      {
-        label: 'חלק א׳',
-        title: 'קופסת 4×4',
-        total: '~10 דק׳',
-        videoId: '959886606388204',
-        drills: [
-          { he: 'רגל ימין בלבד',     en: 'right foot only',     reps: '×10',  time: '~1.5 דק׳' },
-          { he: 'רגל שמאל בלבד',    en: 'left foot only',      reps: '×10',  time: '~1.5 דק׳' },
-          { he: 'נגיעות פנים',         en: 'inside touches',     reps: '×10',  time: '~1.5 דק׳' },
-          { he: 'נגיעות חוץ',          en: 'outside touches',    reps: '×10',  time: '~1.5 דק׳' },
-          { he: 'קרוקטות',             en: 'croquetas',           reps: '×10',  time: '~2 דק׳' },
-          { he: 'גלגולי כדור',         en: 'ball rolls',          reps: '×10',  time: '~2 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ב׳',
-        title: 'כדרור צד-לצד',
-        total: '~3 דק׳',
-        videoId: '2071498600080315',
-        drills: [
-          { he: 'כדרור צד-לצד',  en: 'side-to-side dribble',  reps: '3 × 20',  time: '~3 דק׳' },
-        ],
-      },
-    ],
+    blocks: ['v14', 'v11', 'v1', 'v4', 'juggling'],
   },
-
   thursday: {
     day: 'חמישי',
     title: 'קופסה צמודה וז׳ונגלים',
     intro: 'יום ריכוז גבוה. קופסה של מטר על מטר עם 11 תרגילים, סיום עם ז׳ונגלים מעל קונוסים.',
-    total: '~20 דק׳',
+    total: '~48 דק׳',
     warmup: 'כדרור קל ונגיעות בסיסיות — 5 דק׳',
-    blocks: [
-      {
-        label: 'חלק א׳',
-        title: 'קופסת 1×1 מ׳',
-        total: '~11 דק׳',
-        videoId: '1820919092644683',
-        drills: [
-          { he: 'צעדים עם הסוליה',           en: 'sole steps',          reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'נגיעות פנים',                 en: 'inside taps',         reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'עצירות פנים',                 en: 'inside stops',        reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'עצירות עם השרוכים',         en: 'lace stops',          reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'פנים-חוץ',                    en: 'inside-outsiders',    reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'קרוקטות',                     en: 'croquetas',           reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'גלגולי כדור',                 en: 'ball rolls',          reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'פניות עם משיכה אחורה',     en: 'pull-back turns',     reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'פייקים חיצוניים',             en: 'outside fakes',       reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'העברות מזויפות',              en: 'fake passes',         reps: '30 שנ׳',  time: '~1 דק׳' },
-          { he: 'נגיעות V',                    en: 'V-taps',              reps: '30 שנ׳',  time: '~1 דק׳' },
-        ],
-      },
-      {
-        label: 'חלק ב׳',
-        title: 'ז׳ונגלים מעל קונוסים',
-        total: '~3 דק׳',
-        videoId: '1285755459720130',
-        drills: [
-          { he: 'ז׳ונגלים מעל קונוסים',  en: 'juggling above cones',  reps: '3 × 20',  time: '~3 דק׳' },
-        ],
-      },
-    ],
+    blocks: ['v15', 'v12', 'v1', 'v4', 'juggling'],
   },
 };
 
 const ORDER = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'];
+const HEB_LETTERS = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח'];
 
 function fmtDuration(s) {
   s = Math.round(s);
@@ -327,6 +327,7 @@ function el(tag, attrs, ...children) {
 }
 
 function videoCard(videoId) {
+  if (!videoId) return null;
   const v = VIDEOS[videoId];
   if (!v) return null;
   const card = el('a', { class: 'video-inline', href: v.url, target: '_blank', rel: 'noopener noreferrer' });
@@ -350,7 +351,7 @@ function renderLanding() {
     el('p', { class: 'tag' }, 'דגש על טכניקה · אימון עצמאי עם כדור וקונוסים'),
     el('div', { class: 'stats' },
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ימים בשבוע'), el('div', { class: 'v' }, '5')),
-      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '~20–25 דק׳')),
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '~45 דק׳')),
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ציוד'), el('div', { class: 'v' }, 'כדור + קונוסים')),
     ),
   ));
@@ -388,14 +389,18 @@ function renderProgram(key) {
     el('div', { class: 'txt' }, p.warmup),
   ));
 
-  for (const b of p.blocks) {
+  for (let i = 0; i < p.blocks.length; i++) {
+    const b = BLOCKS[p.blocks[i]];
+    if (!b) continue;
+    const partLabel = 'חלק ' + HEB_LETTERS[i] + '׳';
     const block = el('div', { class: 'block' });
     block.appendChild(el('div', { class: 'block-head' },
-      el('span', { class: 'lbl' }, b.label + ' —'),
+      el('span', { class: 'lbl' }, partLabel + ' —'),
       el('span', { class: 'ttl' }, b.title),
       el('span', { class: 'time-pill' }, b.total),
     ));
-    const body = el('div', { class: 'block-body' });
+    const vc = videoCard(b.videoId);
+    const body = el('div', { class: vc ? 'block-body' : 'block-body solo' });
     const ul = el('ul', { class: 'drills' });
     for (const d of b.drills) {
       ul.appendChild(el('li', {},
@@ -406,7 +411,6 @@ function renderProgram(key) {
       ));
     }
     body.appendChild(ul);
-    const vc = videoCard(b.videoId);
     if (vc) body.appendChild(vc);
     block.appendChild(body);
     prog.appendChild(block);
