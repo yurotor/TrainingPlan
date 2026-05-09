@@ -21,6 +21,7 @@
     --accent: #b54935;
     --accent-hover: #963c2c;
     --shadow: 0 1px 2px rgba(0,0,0,.04);
+    --soft: #faf6f4;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -35,155 +36,258 @@
   header.site { text-align: center; margin: 8px 0 28px; }
   header.site h1 { font-size: 28px; font-weight: 700; margin: 0 0 6px; }
   header.site p.tag { color: var(--muted); margin: 0 0 18px; font-size: 15px; }
-  .stats {
-    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;
-  }
-  .stat {
-    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    padding: 10px 16px; min-width: 110px; box-shadow: var(--shadow);
-  }
+  .stats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 10px 16px; min-width: 110px; box-shadow: var(--shadow); }
   .stat .k { color: var(--label); font-size: 12px; font-weight: 500; }
   .stat .v { font-size: 17px; font-weight: 600; margin-top: 2px; }
 
-  .card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-    padding: 18px 18px 16px; margin-bottom: 14px; box-shadow: var(--shadow);
-    text-decoration: none; color: inherit; display: block;
-    transition: border-color .15s, transform .15s;
-  }
+  a.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 16px; margin-bottom: 14px; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: block; transition: border-color .15s, transform .15s; }
   a.card:hover { border-color: #cdc7be; }
   a.card:active { transform: scale(.997); }
-
   .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
-  .pill {
-    display: inline-block; background: var(--pill-bg); color: var(--pill-ink);
-    border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 600;
-  }
-  .card h2 { font-size: 19px; font-weight: 600; margin: 0; }
-  .card p.intro { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+  .pill { display: inline-block; background: var(--pill-bg); color: var(--pill-ink); border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  a.card h2 { font-size: 19px; font-weight: 600; margin: 0; }
+  a.card p.intro { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
 
-  .program { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px 14px; box-shadow: var(--shadow); }
+  .program { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px 18px; box-shadow: var(--shadow); }
   .program-head h2 { margin: 8px 0 6px; font-size: 22px; }
-  .program-head p.intro { color: var(--muted); margin: 0 0 16px; font-size: 15px; }
+  .program-head p.intro { color: var(--muted); margin: 0; font-size: 15px; }
 
-  .items { border-top: 1px solid var(--border); }
-  .item { display: grid; grid-template-columns: 80px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: start; }
-  .item:last-child { border-bottom: 0; }
-  .item .lbl { color: var(--label); font-size: 14px; font-weight: 500; padding-top: 1px; }
-  .item .txt { font-size: 15.5px; }
+  .meta-line { color: var(--label); font-size: 13px; margin-top: 10px; }
 
-  .videos-block { margin-top: 22px; }
-  .videos-block h3 { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--muted); }
-  .video-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 12px;
-  }
-  a.video {
-    display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-    overflow: hidden; text-decoration: none; color: inherit;
-    transition: transform .15s, border-color .15s;
-  }
-  a.video:hover { border-color: #cdc7be; }
-  a.video:active { transform: scale(.99); }
-  a.video .thumb { display: block; aspect-ratio: 1/1; background: #eee no-repeat center/cover; position: relative; }
-  a.video .thumb::after {
-    content: '▶'; position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%,-50%); color: white;
-    background: rgba(0,0,0,.55); width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    border-radius: 50%; font-size: 16px; padding-right: 3px;
-  }
-  a.video .meta { padding: 10px 12px 12px; }
-  a.video .uploader { font-size: 12.5px; color: var(--label); display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
-  a.video .desc { font-size: 14px; line-height: 1.4; }
-  a.video .desc.placeholder { color: var(--muted); font-style: italic; }
+  .simple-row { display: grid; grid-template-columns: 80px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .simple-row:last-child { border-bottom: 0; }
+  .simple-row .lbl { color: var(--label); font-size: 14px; font-weight: 500; padding-top: 1px; }
+  .simple-row .txt { font-size: 15.5px; }
 
-  .back {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500;
-    margin-bottom: 16px; padding: 6px 0;
-  }
+  .block { padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .block:last-child { border-bottom: 0; }
+  .block-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .block-head .lbl { color: var(--label); font-size: 14px; font-weight: 500; }
+  .block-head .ttl { font-size: 16px; font-weight: 600; }
+
+  .block-body { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: start; }
+  ul.drills { margin: 0; padding: 0; list-style: none; }
+  ul.drills li { padding: 8px 0 8px 0; font-size: 15.5px; border-bottom: 1px dashed #ededea; }
+  ul.drills li:last-child { border-bottom: 0; }
+  ul.drills li .en { color: var(--muted); font-size: 13.5px; }
+  ul.drills li .reps { color: var(--accent); font-weight: 500; }
+
+  a.video-inline { display: block; background: var(--soft); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; transition: transform .15s, border-color .15s; }
+  a.video-inline:hover { border-color: #cdc7be; }
+  a.video-inline:active { transform: scale(.99); }
+  a.video-inline .thumb { display: block; aspect-ratio: 1/1; background: #eee no-repeat center/cover; position: relative; }
+  a.video-inline .thumb::after { content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: white; background: rgba(0,0,0,.55); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 16px; padding-right: 3px; }
+  a.video-inline .meta { padding: 8px 10px 10px; }
+  a.video-inline .uploader { font-size: 12.5px; color: var(--label); display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+  a.video-inline .watch { font-size: 12.5px; color: var(--accent); }
+
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500; margin-bottom: 16px; padding: 6px 0; }
   .back:hover { color: var(--accent-hover); }
 
+  @media (max-width: 600px) {
+    .block-body { grid-template-columns: 1fr; }
+    a.video-inline { max-width: 280px; }
+  }
   @media (max-width: 480px) {
     main { padding: 18px 14px 60px; }
     header.site h1 { font-size: 24px; }
     .program { padding: 18px 16px 12px; }
-    .item { grid-template-columns: 64px 1fr; gap: 10px; }
-    .item .lbl { font-size: 13px; }
-    .item .txt { font-size: 15px; }
+    .simple-row { grid-template-columns: 64px 1fr; gap: 10px; }
+    .simple-row .lbl { font-size: 13px; }
+    .simple-row .txt { font-size: 15px; }
+    ul.drills li { font-size: 15px; }
   }
 </style>
 </head>
 <body>
 <main id="app"></main>
 <script>
+const VIDEOS = {
+  '861552193637806': { url: 'https://www.facebook.com/reel/861552193637806/',                uploader: 'Addae Paponette',     duration: 15 },
+  '960332706917482': { url: 'https://www.facebook.com/reel/960332706917482/',                uploader: 'Addae Paponette',     duration: 17 },
+  '925316350210427': { url: 'https://www.facebook.com/watch/?v=925316350210427',             uploader: 'Sportplan Football',  duration: 36 },
+  '1503901278107802':{ url: 'https://www.facebook.com/reel/1503901278107802/',               uploader: 'Addae Paponette',     duration: 32 },
+  '761338307059529': { url: 'https://www.facebook.com/watch/?v=761338307059529',             uploader: 'Sportplan Football',  duration: 10 },
+  '1284638393851240':{ url: 'https://www.facebook.com/reel/1284638393851240/',               uploader: 'Addae Paponette',     duration: 13 },
+  '1495785262207473':{ url: 'https://www.facebook.com/reel/1495785262207473/',               uploader: 'Addae Paponette',     duration: 14 },
+  '2071498600080315':{ url: 'https://www.facebook.com/watch/?v=2071498600080315',            uploader: 'j20coaching',         duration: 23 },
+  '1285755459720130':{ url: 'https://www.facebook.com/watch/?v=1285755459720130',            uploader: 'Brent Glantz',        duration: 15 },
+  '959886606388204': { url: 'https://www.facebook.com/watch/?v=959886606388204',             uploader: 'ElevatePerformance',  duration: 52 },
+  '1820919092644683':{ url: 'https://www.facebook.com/watch/?v=1820919092644683',            uploader: 'ElevatePerformance',  duration: 48 },
+};
+
 const PROGRAMS = {
   sunday: {
     day: 'ראשון',
-    title: 'שליטה בכדור ונגיעות קצרות',
-    intro: 'בונה תחושת כדור, מהירות רגליים ונוחות עם שתי הרגליים. יום קל לפתיחת השבוע.',
-    items: [
-      ['חימום', 'נגיעות עם קצה הנעל, גלגול עם הסוליה — 5 דק׳'],
-      ['חלק א׳', 'העברות פנים-פנים, משיכות V, גלגול ודחיפה — 4×60 שניות'],
-      ['חלק ב׳', 'תרגיל "8" סביב 2 קונוסים, שתי רגליים — 6 חזרות'],
-      ['חלק ג׳', 'ז׳ונגלים במקום — מטרה: +50 עם כל רגל'],
-      ['סיום', 'הליכה קלה ומתיחות — 5 דק׳'],
+    title: 'יסודות שליטה בכדור',
+    intro: 'פתיחת השבוע. בונה תחושת כדור עם משיכות, דחיפות ונגיעות בסיסיות. שתי רגליים, איכות לפני כמות.',
+    warmup: 'כדרור קל ונגיעות עם הסוליה — 5 דק׳',
+    blocks: [
+      {
+        label: 'חלק א׳',
+        title: 'שליטה בסיסית',
+        videoId: '861552193637806',
+        drills: [
+          { he: 'משיכה ודחיפה',          en: 'pull & push',                reps: '×100' },
+          { he: 'גרירה ובעיטה',           en: 'drag & kick',                reps: '×100' },
+          { he: 'משיכה ודחיפה רגל אחת',  en: 'single-leg pull & push',     reps: '×75 לכל רגל' },
+        ],
+      },
+      {
+        label: 'חלק ב׳',
+        title: 'נגיעות ודחיפות',
+        videoId: '1503901278107802',
+        drills: [
+          { he: 'נגיעות בקצה הנעל',   en: 'toe taps',     reps: '×50' },
+          { he: 'נגיעות פנים',         en: 'inside',       reps: '×50' },
+          { he: 'דחיפה ומשיכה',         en: 'push & pull',  reps: '×50' },
+          { he: 'סטפ-אובר',             en: 'stepover',     reps: '×50' },
+        ],
+      },
     ],
+    cooldown: 'מתיחות — 5 דק׳',
   },
+
   monday: {
     day: 'שני',
-    title: 'כדרור ותרגילי 1 על 1',
-    intro: 'מתרגם את השליטה בכדור לתנועות אמיתיות מהמשחק. הקונוסים הם "המגנים".',
-    items: [
-      ['חימום', 'כדרור קל בריבוע 5×5 מ׳, שינוי כיוון כל 3 שניות — 5 דק׳'],
-      ['חלק א׳', 'סלאלום בין 6 קונוסים (מטר ביניהם), נגיעות פנים-חוץ — 6 חזרות עם כל רגל'],
-      ['חלק ב׳', 'תרגיל לכל קונוס: מספריים, סטפ-אובר, לה קרוקטה, פניית קרויף — 2 סטים'],
-      ['חלק ג׳', 'כדרור מהיר 15 מ׳ → חיתוך בקונוס → ספרינט חזרה — 6 חזרות'],
-      ['סיום', 'ז׳ונגלים ומתיחות — 5 דק׳'],
+    title: 'גרירות V וחיתוכים',
+    intro: 'יום טכני. גרירות V, חיתוכי V ו-L, ושליטה בכיוון. דורש דיוק ולא מהירות.',
+    warmup: 'כדרור קל וריצה — 5 דק׳',
+    blocks: [
+      {
+        label: 'חלק א׳',
+        title: 'גרירות V',
+        videoId: '960332706917482',
+        drills: [
+          { he: 'גרירות V',                       en: 'V-drags',                  reps: '×20 לכל רגל' },
+          { he: 'גרירת V עם העברה',                en: 'V-drag & pass',            reps: '×30' },
+          { he: 'ריבוע סביב קונוס',                en: 'drag square around cone',  reps: '×10 לכל רגל' },
+          { he: 'גרירת V ודחיפה עם השרוכים',       en: 'V-drag & lace push',       reps: '×10 לכל רגל' },
+        ],
+      },
+      {
+        label: 'חלק ב׳',
+        title: 'גרירות וחיתוכים',
+        videoId: '761338307059529',
+        drills: [
+          { he: 'גרירות פנים-חוץ',  en: 'inside/outside drags', reps: '3 × 30 שניות' },
+          { he: 'חיתוכי V',           en: 'V-cuts',               reps: '3 × 30 שניות' },
+        ],
+      },
+      {
+        label: 'חלק ג׳',
+        title: 'חיתוכי L',
+        videoId: '1495785262207473',
+        drills: [
+          { he: 'חיתוכי L',          en: 'L-cuts',        reps: '3 × 25' },
+          { he: 'חיתוכי V',          en: 'V-cuts',        reps: '3 × 25' },
+          { he: 'משיכה ודחיפה',     en: 'pull & push',   reps: '3 × 30' },
+        ],
+      },
     ],
+    cooldown: 'ז׳ונגלים ומתיחות — 5 דק׳',
   },
+
   tuesday: {
     day: 'שלישי',
-    title: 'מסירות ונגיעה ראשונה (עבודה מול קיר)',
-    intro: 'צריך קיר — קיר בית, מחסן, או בית ספר. הכלי הכי חשוב באימון לבד.',
-    items: [
-      ['חימום', 'מסירות קלות מול הקיר, שתי רגליים — 5 דק׳'],
-      ['חלק א׳', 'מסירות בנגיעה אחת מול הקיר, 50 עם כל רגל ואז מתחלפים'],
-      ['חלק ב׳', 'קבלה ← חיתוך הצידה ← מסירה חזרה. 30 חזרות לכל צד.'],
-      ['חלק ג׳', 'לזרוק כדור לקיר ← לעצור באוויר עם ירך/חזה/רגל ← להחזיר. 20 חזרות.'],
-      ['סיום', 'מתיחות — 5 דק׳'],
+    title: 'סטפ-אוברים ופייקים',
+    intro: 'תנועות 1 על 1. הקונוסים הם "המגנים". מהירות ביצוע חשובה — אבל הנגיעה חייבת להיות נקייה.',
+    warmup: 'כדרור קל בריבוע 5×5 מ׳ — 5 דק׳',
+    blocks: [
+      {
+        label: 'חלק א׳',
+        title: 'סטפ-אוברים',
+        videoId: '925316350210427',
+        drills: [
+          { he: 'סטפ-אובר קלאסי',                  en: 'classic stepover',  reps: '5 × 30 שניות' },
+          { he: 'צעד חיצוני שמאל / ימין',          en: 'outside step L/R',  reps: '5 × 30 שניות לכל רגל' },
+          { he: 'צעד חיצוני עם שתיהן',              en: 'outside both',      reps: '5 × 30 שניות' },
+        ],
+      },
+      {
+        label: 'חלק ב׳',
+        title: 'סטפ-אוברים ללא הסתכלות',
+        videoId: '1284638393851240',
+        drills: [
+          { he: 'סטפ-אוברים ללא הסתכלות',  en: 'no-look stepovers',  reps: '3 × 20 לכל רגל' },
+          { he: 'חציות',                       en: 'crossovers',         reps: '3 × 25' },
+          { he: 'סטפ-אוברים כפולים',           en: 'double stepovers',   reps: '3 × 20' },
+        ],
+      },
     ],
+    cooldown: 'מתיחות — 5 דק׳',
   },
+
   wednesday: {
     day: 'רביעי',
-    title: 'סיומות ובעיטות לשער',
-    intro: 'צריך מטרה — שער, גדר, או שני קונוסים. טכניקה לפני כוח.',
-    items: [
-      ['חימום', 'כדרור קל ושליטה בכדור — 5 דק׳'],
-      ['חלק א׳', 'בעיטות מדויקות לפינות מנקודה קבועה — 10 עם כל רגל'],
-      ['חלק ב׳', 'כדרור בין 3 קונוסים ← סיומת — 10 עם כל רגל'],
-      ['חלק ג׳', 'חיתוך פנימה / חיתוך החוצה לפני הבעיטה — 10 לכל צד'],
-      ['סיום', 'ז׳ונגלים ומתיחות — 5 דק׳'],
+    title: 'קופסת 4×4 קונוסים',
+    intro: 'שליטה במרחב צמוד. קופסה של 4 על 4 קונוסים. דיוק ושינוי כיוון מהיר.',
+    warmup: 'ריצה קלה ונגיעות עם הסוליה — 5 דק׳',
+    blocks: [
+      {
+        label: 'חלק א׳',
+        title: 'קופסת 4×4',
+        videoId: '959886606388204',
+        drills: [
+          { he: 'רגל ימין בלבד',     en: 'right foot only',     reps: '×10' },
+          { he: 'רגל שמאל בלבד',    en: 'left foot only',      reps: '×10' },
+          { he: 'נגיעות פנים',         en: 'inside touches',     reps: '×10' },
+          { he: 'נגיעות חוץ',          en: 'outside touches',    reps: '×10' },
+          { he: 'קרוקטות',             en: 'croquetas',           reps: '×10' },
+          { he: 'גלגולי כדור',         en: 'ball rolls',          reps: '×10' },
+        ],
+      },
+      {
+        label: 'חלק ב׳',
+        title: 'כדרור צד-לצד',
+        videoId: '2071498600080315',
+        drills: [
+          { he: 'כדרור צד-לצד',  en: 'side-to-side dribble',  reps: '3 × 20' },
+        ],
+      },
     ],
+    cooldown: 'ז׳ונגלים ומתיחות — 5 דק׳',
   },
+
   thursday: {
     day: 'חמישי',
-    title: 'מהירות, זריזות ורגל חלשה',
-    intro: 'יום עוצמה גבוהה. כל החלק האחרון — רק רגל חלשה. הדבר הכי חשוב לגיל הזה.',
-    items: [
-      ['חימום', 'מתיחות דינמיות וריצה קלה — 5 דק׳'],
-      ['חלק א׳', 'סולם זריזות עם קונוסים (5 קונוסים, 50 ס"מ) — פנים-חוץ, צד, רגל אחת — 4 סטים'],
-      ['חלק ב׳', 'כדרור + ספרינט + שינוי כיוון — 8 חזרות'],
-      ['חלק ג׳', 'רגל חלשה בלבד: כדרור, מסירות לקיר, סיומת — 15 דק׳'],
-      ['סיום', 'מתיחות ארוכות, גוף מלא — 8 דק׳'],
+    title: 'קופסה צמודה וז׳ונגלים',
+    intro: 'יום ריכוז גבוה. קופסה של מטר על מטר עם 11 תרגילים, סיום עם ז׳ונגלים מעל קונוסים.',
+    warmup: 'כדרור קל ונגיעות בסיסיות — 5 דק׳',
+    blocks: [
+      {
+        label: 'חלק א׳',
+        title: 'קופסת 1×1 מ׳',
+        videoId: '1820919092644683',
+        drills: [
+          { he: 'צעדים עם הסוליה',           en: 'sole steps',          reps: '30 שניות' },
+          { he: 'נגיעות פנים',                 en: 'inside taps',         reps: '30 שניות' },
+          { he: 'עצירות פנים',                 en: 'inside stops',        reps: '30 שניות' },
+          { he: 'עצירות עם השרוכים',         en: 'lace stops',          reps: '30 שניות' },
+          { he: 'פנים-חוץ',                    en: 'inside-outsiders',    reps: '30 שניות' },
+          { he: 'קרוקטות',                     en: 'croquetas',           reps: '30 שניות' },
+          { he: 'גלגולי כדור',                 en: 'ball rolls',          reps: '30 שניות' },
+          { he: 'פניות עם משיכה אחורה',     en: 'pull-back turns',     reps: '30 שניות' },
+          { he: 'פייקים חיצוניים',             en: 'outside fakes',       reps: '30 שניות' },
+          { he: 'העברות מזויפות',              en: 'fake passes',         reps: '30 שניות' },
+          { he: 'נגיעות V',                    en: 'V-taps',              reps: '30 שניות' },
+        ],
+      },
+      {
+        label: 'חלק ב׳',
+        title: 'ז׳ונגלים מעל קונוסים',
+        videoId: '1285755459720130',
+        drills: [
+          { he: 'ז׳ונגלים מעל קונוסים',  en: 'juggling above cones',  reps: '3 × 20' },
+        ],
+      },
     ],
+    cooldown: 'מתיחות ארוכות — 5 דק׳',
   },
 };
 
 const ORDER = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'];
-
-let VIDEOS = {};
 
 function fmtDuration(s) {
   s = Math.round(s);
@@ -207,6 +311,23 @@ function el(tag, attrs, ...children) {
   return e;
 }
 
+function videoCard(videoId) {
+  const v = VIDEOS[videoId];
+  if (!v) return null;
+  const card = el('a', { class: 'video-inline', href: v.url, target: '_blank', rel: 'noopener noreferrer' });
+  const thumb = el('span', { class: 'thumb' });
+  thumb.style.backgroundImage = "url('assets/thumbs/" + videoId + ".jpg')";
+  card.appendChild(thumb);
+  card.appendChild(el('div', { class: 'meta' },
+    el('div', { class: 'uploader' },
+      el('span', {}, v.uploader),
+      el('span', {}, fmtDuration(v.duration)),
+    ),
+    el('div', { class: 'watch' }, '▶ צפה בפייסבוק'),
+  ));
+  return card;
+}
+
 function renderLanding() {
   const root = el('div', {});
   root.appendChild(el('header', { class: 'site' },
@@ -214,7 +335,7 @@ function renderLanding() {
     el('p', { class: 'tag' }, 'דגש על טכניקה · אימון עצמאי עם כדור וקונוסים'),
     el('div', { class: 'stats' },
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ימים בשבוע'), el('div', { class: 'v' }, '5')),
-      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '45–60 דק׳')),
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '~45 דק׳')),
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ציוד'), el('div', { class: 'v' }, 'כדור + קונוסים')),
     ),
   ));
@@ -233,46 +354,47 @@ function renderLanding() {
 
 function renderProgram(key) {
   const p = PROGRAMS[key];
-  const vids = VIDEOS[key] || [];
   const root = el('div', {});
   root.appendChild(el('a', { class: 'back', href: '#/' }, '→ חזרה לכל התוכניות'));
   const prog = el('div', { class: 'program' });
+
   prog.appendChild(el('div', { class: 'program-head' },
     el('div', { class: 'card-head' }, el('span', { class: 'pill' }, p.day)),
     el('h2', {}, p.title),
     el('p', { class: 'intro' }, p.intro),
   ));
-  const items = el('div', { class: 'items' });
-  for (const [lbl, txt] of p.items) {
-    items.appendChild(el('div', { class: 'item' },
-      el('div', { class: 'lbl' }, lbl),
-      el('div', { class: 'txt' }, txt),
-    ));
-  }
-  prog.appendChild(items);
 
-  if (vids.length) {
-    const vb = el('div', { class: 'videos-block' });
-    vb.appendChild(el('h3', {}, 'סרטוני תרגול'));
-    const grid = el('div', { class: 'video-grid' });
-    for (const v of vids) {
-      const card = el('a', { class: 'video', href: v.url, target: '_blank', rel: 'noopener noreferrer' });
-      const thumb = el('span', { class: 'thumb' });
-      thumb.style.backgroundImage = "url('assets/thumbs/" + v.id + ".jpg')";
-      card.appendChild(thumb);
-      const meta = el('div', { class: 'meta' });
-      meta.appendChild(el('div', { class: 'uploader' },
-        el('span', {}, v.uploader),
-        el('span', {}, fmtDuration(v.duration)),
+  prog.appendChild(el('div', { class: 'simple-row' },
+    el('div', { class: 'lbl' }, 'חימום'),
+    el('div', { class: 'txt' }, p.warmup),
+  ));
+
+  for (const b of p.blocks) {
+    const block = el('div', { class: 'block' });
+    block.appendChild(el('div', { class: 'block-head' },
+      el('span', { class: 'lbl' }, b.label + ' —'),
+      el('span', { class: 'ttl' }, b.title),
+    ));
+    const body = el('div', { class: 'block-body' });
+    const ul = el('ul', { class: 'drills' });
+    for (const d of b.drills) {
+      ul.appendChild(el('li', {},
+        el('span', {}, d.he),
+        el('span', { class: 'en' }, ' (' + d.en + ')  '),
+        el('span', { class: 'reps' }, d.reps),
       ));
-      const descClass = v.description ? 'desc' : 'desc placeholder';
-      meta.appendChild(el('div', { class: descClass }, v.description || 'צפה בפייסבוק'));
-      card.appendChild(meta);
-      grid.appendChild(card);
     }
-    vb.appendChild(grid);
-    prog.appendChild(vb);
+    body.appendChild(ul);
+    const vc = videoCard(b.videoId);
+    if (vc) body.appendChild(vc);
+    block.appendChild(body);
+    prog.appendChild(block);
   }
+
+  prog.appendChild(el('div', { class: 'simple-row' },
+    el('div', { class: 'lbl' }, 'סיום'),
+    el('div', { class: 'txt' }, p.cooldown),
+  ));
 
   root.appendChild(prog);
   return root;
@@ -290,14 +412,8 @@ function render() {
   window.scrollTo(0, 0);
 }
 
-fetch('videos.json', { cache: 'no-cache' })
-  .then(r => r.ok ? r.json() : {})
-  .then(d => { VIDEOS = d || {}; })
-  .catch(() => { VIDEOS = {}; })
-  .finally(() => {
-    window.addEventListener('hashchange', render);
-    render();
-  });
+window.addEventListener('hashchange', render);
+window.addEventListener('load', render);
 </script>
 </body>
 </html>
