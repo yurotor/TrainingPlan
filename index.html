@@ -18,6 +18,8 @@
     --label: #908b85;
     --pill-bg: #fde2dc;
     --pill-ink: #b54935;
+    --time-bg: #eef3ec;
+    --time-ink: #4d6a47;
     --accent: #b54935;
     --accent-hover: #963c2c;
     --shadow: 0 1px 2px rgba(0,0,0,.04);
@@ -44,16 +46,15 @@
   a.card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 16px; margin-bottom: 14px; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: block; transition: border-color .15s, transform .15s; }
   a.card:hover { border-color: #cdc7be; }
   a.card:active { transform: scale(.997); }
-  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
   .pill { display: inline-block; background: var(--pill-bg); color: var(--pill-ink); border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 600; }
+  .time-pill { display: inline-block; background: var(--time-bg); color: var(--time-ink); border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 500; }
   a.card h2 { font-size: 19px; font-weight: 600; margin: 0; }
   a.card p.intro { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
 
   .program { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px 18px; box-shadow: var(--shadow); }
   .program-head h2 { margin: 8px 0 6px; font-size: 22px; }
   .program-head p.intro { color: var(--muted); margin: 0; font-size: 15px; }
-
-  .meta-line { color: var(--label); font-size: 13px; margin-top: 10px; }
 
   .simple-row { display: grid; grid-template-columns: 80px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); align-items: start; }
   .simple-row:last-child { border-bottom: 0; }
@@ -62,16 +63,18 @@
 
   .block { padding: 18px 0; border-bottom: 1px solid var(--border); }
   .block:last-child { border-bottom: 0; }
-  .block-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .block-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
   .block-head .lbl { color: var(--label); font-size: 14px; font-weight: 500; }
   .block-head .ttl { font-size: 16px; font-weight: 600; }
 
   .block-body { display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: start; }
   ul.drills { margin: 0; padding: 0; list-style: none; }
-  ul.drills li { padding: 8px 0 8px 0; font-size: 15.5px; border-bottom: 1px dashed #ededea; }
+  ul.drills li { padding: 9px 0; font-size: 15.5px; border-bottom: 1px dashed #ededea; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; }
   ul.drills li:last-child { border-bottom: 0; }
+  ul.drills li .he { font-weight: 500; }
   ul.drills li .en { color: var(--muted); font-size: 13.5px; }
   ul.drills li .reps { color: var(--accent); font-weight: 500; }
+  ul.drills li .time { color: var(--time-ink); font-size: 13px; margin-inline-start: auto; white-space: nowrap; }
 
   a.video-inline { display: block; background: var(--soft); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; text-decoration: none; color: inherit; transition: transform .15s, border-color .15s; }
   a.video-inline:hover { border-color: #cdc7be; }
@@ -97,6 +100,7 @@
     .simple-row .lbl { font-size: 13px; }
     .simple-row .txt { font-size: 15px; }
     ul.drills li { font-size: 15px; }
+    ul.drills li .time { width: 100%; margin-inline-start: 0; }
   }
 </style>
 </head>
@@ -122,168 +126,179 @@ const PROGRAMS = {
     day: 'ראשון',
     title: 'יסודות שליטה בכדור',
     intro: 'פתיחת השבוע. בונה תחושת כדור עם משיכות, דחיפות ונגיעות בסיסיות. שתי רגליים, איכות לפני כמות.',
+    total: '~25 דק׳',
     warmup: 'כדרור קל ונגיעות עם הסוליה — 5 דק׳',
     blocks: [
       {
         label: 'חלק א׳',
         title: 'שליטה בסיסית',
+        total: '~10 דק׳',
         videoId: '861552193637806',
         drills: [
-          { he: 'משיכה ודחיפה',          en: 'pull & push',                reps: '×100' },
-          { he: 'גרירה ובעיטה',           en: 'drag & kick',                reps: '×100' },
-          { he: 'משיכה ודחיפה רגל אחת',  en: 'single-leg pull & push',     reps: '×75 לכל רגל' },
+          { he: 'משיכה ודחיפה',          en: 'pull & push',                reps: '×100',          time: '~3 דק׳' },
+          { he: 'גרירה ובעיטה',           en: 'drag & kick',                reps: '×100',          time: '~3 דק׳' },
+          { he: 'משיכה ודחיפה רגל אחת',  en: 'single-leg pull & push',     reps: '×75 לכל רגל',   time: '~4 דק׳' },
         ],
       },
       {
         label: 'חלק ב׳',
         title: 'נגיעות ודחיפות',
+        total: '~9 דק׳',
         videoId: '1503901278107802',
         drills: [
-          { he: 'נגיעות בקצה הנעל',   en: 'toe taps',     reps: '×50' },
-          { he: 'נגיעות פנים',         en: 'inside',       reps: '×50' },
-          { he: 'דחיפה ומשיכה',         en: 'push & pull',  reps: '×50' },
-          { he: 'סטפ-אובר',             en: 'stepover',     reps: '×50' },
+          { he: 'נגיעות בקצה הנעל',  en: 'toe taps',     reps: '×50', time: '~2 דק׳' },
+          { he: 'נגיעות פנים',          en: 'inside',       reps: '×50', time: '~2 דק׳' },
+          { he: 'דחיפה ומשיכה',        en: 'push & pull',  reps: '×50', time: '~2 דק׳' },
+          { he: 'סטפ-אובר',             en: 'stepover',     reps: '×50', time: '~3 דק׳' },
         ],
       },
     ],
-    cooldown: 'מתיחות — 5 דק׳',
   },
 
   monday: {
     day: 'שני',
     title: 'גרירות V וחיתוכים',
     intro: 'יום טכני. גרירות V, חיתוכי V ו-L, ושליטה בכיוון. דורש דיוק ולא מהירות.',
+    total: '~25 דק׳',
     warmup: 'כדרור קל וריצה — 5 דק׳',
     blocks: [
       {
         label: 'חלק א׳',
         title: 'גרירות V',
+        total: '~8 דק׳',
         videoId: '960332706917482',
         drills: [
-          { he: 'גרירות V',                       en: 'V-drags',                  reps: '×20 לכל רגל' },
-          { he: 'גרירת V עם העברה',                en: 'V-drag & pass',            reps: '×30' },
-          { he: 'ריבוע סביב קונוס',                en: 'drag square around cone',  reps: '×10 לכל רגל' },
-          { he: 'גרירת V ודחיפה עם השרוכים',       en: 'V-drag & lace push',       reps: '×10 לכל רגל' },
+          { he: 'גרירות V',                       en: 'V-drags',                  reps: '×20 לכל רגל',     time: '~2 דק׳' },
+          { he: 'גרירת V עם העברה',                en: 'V-drag & pass',            reps: '×30',              time: '~2 דק׳' },
+          { he: 'ריבוע סביב קונוס',                en: 'drag square around cone',  reps: '×10 לכל רגל',     time: '~2 דק׳' },
+          { he: 'גרירת V ודחיפה עם השרוכים',       en: 'V-drag & lace push',       reps: '×10 לכל רגל',     time: '~2 דק׳' },
         ],
       },
       {
         label: 'חלק ב׳',
         title: 'גרירות וחיתוכים',
+        total: '~4 דק׳',
         videoId: '761338307059529',
         drills: [
-          { he: 'גרירות פנים-חוץ',  en: 'inside/outside drags', reps: '3 × 30 שניות' },
-          { he: 'חיתוכי V',           en: 'V-cuts',               reps: '3 × 30 שניות' },
+          { he: 'גרירות פנים-חוץ',  en: 'inside/outside drags', reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
+          { he: 'חיתוכי V',           en: 'V-cuts',               reps: '3 × 30 שנ׳',  time: '~2 דק׳' },
         ],
       },
       {
         label: 'חלק ג׳',
         title: 'חיתוכי L',
+        total: '~8 דק׳',
         videoId: '1495785262207473',
         drills: [
-          { he: 'חיתוכי L',          en: 'L-cuts',        reps: '3 × 25' },
-          { he: 'חיתוכי V',          en: 'V-cuts',        reps: '3 × 25' },
-          { he: 'משיכה ודחיפה',     en: 'pull & push',   reps: '3 × 30' },
+          { he: 'חיתוכי L',          en: 'L-cuts',        reps: '3 × 25', time: '~3 דק׳' },
+          { he: 'חיתוכי V',          en: 'V-cuts',        reps: '3 × 25', time: '~3 דק׳' },
+          { he: 'משיכה ודחיפה',     en: 'pull & push',   reps: '3 × 30', time: '~2 דק׳' },
         ],
       },
     ],
-    cooldown: 'ז׳ונגלים ומתיחות — 5 דק׳',
   },
 
   tuesday: {
     day: 'שלישי',
     title: 'סטפ-אוברים ופייקים',
     intro: 'תנועות 1 על 1. הקונוסים הם "המגנים". מהירות ביצוע חשובה — אבל הנגיעה חייבת להיות נקייה.',
+    total: '~25 דק׳',
     warmup: 'כדרור קל בריבוע 5×5 מ׳ — 5 דק׳',
     blocks: [
       {
         label: 'חלק א׳',
         title: 'סטפ-אוברים',
+        total: '~12 דק׳',
         videoId: '925316350210427',
         drills: [
-          { he: 'סטפ-אובר קלאסי',                  en: 'classic stepover',  reps: '5 × 30 שניות' },
-          { he: 'צעד חיצוני שמאל / ימין',          en: 'outside step L/R',  reps: '5 × 30 שניות לכל רגל' },
-          { he: 'צעד חיצוני עם שתיהן',              en: 'outside both',      reps: '5 × 30 שניות' },
+          { he: 'סטפ-אובר קלאסי',                  en: 'classic stepover',  reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
+          { he: 'צעד חיצוני שמאל / ימין',          en: 'outside step L/R',  reps: '5 × 30 שנ׳ לכל רגל',  time: '~6 דק׳' },
+          { he: 'צעד חיצוני עם שתיהן',              en: 'outside both',      reps: '5 × 30 שנ׳',           time: '~3 דק׳' },
         ],
       },
       {
         label: 'חלק ב׳',
         title: 'סטפ-אוברים ללא הסתכלות',
+        total: '~9 דק׳',
         videoId: '1284638393851240',
         drills: [
-          { he: 'סטפ-אוברים ללא הסתכלות',  en: 'no-look stepovers',  reps: '3 × 20 לכל רגל' },
-          { he: 'חציות',                       en: 'crossovers',         reps: '3 × 25' },
-          { he: 'סטפ-אוברים כפולים',           en: 'double stepovers',   reps: '3 × 20' },
+          { he: 'סטפ-אוברים ללא הסתכלות',  en: 'no-look stepovers',  reps: '3 × 20 לכל רגל',  time: '~3 דק׳' },
+          { he: 'חציות',                       en: 'crossovers',         reps: '3 × 25',           time: '~3 דק׳' },
+          { he: 'סטפ-אוברים כפולים',           en: 'double stepovers',   reps: '3 × 20',           time: '~3 דק׳' },
         ],
       },
     ],
-    cooldown: 'מתיחות — 5 דק׳',
   },
 
   wednesday: {
     day: 'רביעי',
     title: 'קופסת 4×4 קונוסים',
     intro: 'שליטה במרחב צמוד. קופסה של 4 על 4 קונוסים. דיוק ושינוי כיוון מהיר.',
+    total: '~20 דק׳',
     warmup: 'ריצה קלה ונגיעות עם הסוליה — 5 דק׳',
     blocks: [
       {
         label: 'חלק א׳',
         title: 'קופסת 4×4',
+        total: '~10 דק׳',
         videoId: '959886606388204',
         drills: [
-          { he: 'רגל ימין בלבד',     en: 'right foot only',     reps: '×10' },
-          { he: 'רגל שמאל בלבד',    en: 'left foot only',      reps: '×10' },
-          { he: 'נגיעות פנים',         en: 'inside touches',     reps: '×10' },
-          { he: 'נגיעות חוץ',          en: 'outside touches',    reps: '×10' },
-          { he: 'קרוקטות',             en: 'croquetas',           reps: '×10' },
-          { he: 'גלגולי כדור',         en: 'ball rolls',          reps: '×10' },
+          { he: 'רגל ימין בלבד',     en: 'right foot only',     reps: '×10',  time: '~1.5 דק׳' },
+          { he: 'רגל שמאל בלבד',    en: 'left foot only',      reps: '×10',  time: '~1.5 דק׳' },
+          { he: 'נגיעות פנים',         en: 'inside touches',     reps: '×10',  time: '~1.5 דק׳' },
+          { he: 'נגיעות חוץ',          en: 'outside touches',    reps: '×10',  time: '~1.5 דק׳' },
+          { he: 'קרוקטות',             en: 'croquetas',           reps: '×10',  time: '~2 דק׳' },
+          { he: 'גלגולי כדור',         en: 'ball rolls',          reps: '×10',  time: '~2 דק׳' },
         ],
       },
       {
         label: 'חלק ב׳',
         title: 'כדרור צד-לצד',
+        total: '~3 דק׳',
         videoId: '2071498600080315',
         drills: [
-          { he: 'כדרור צד-לצד',  en: 'side-to-side dribble',  reps: '3 × 20' },
+          { he: 'כדרור צד-לצד',  en: 'side-to-side dribble',  reps: '3 × 20',  time: '~3 דק׳' },
         ],
       },
     ],
-    cooldown: 'ז׳ונגלים ומתיחות — 5 דק׳',
   },
 
   thursday: {
     day: 'חמישי',
     title: 'קופסה צמודה וז׳ונגלים',
     intro: 'יום ריכוז גבוה. קופסה של מטר על מטר עם 11 תרגילים, סיום עם ז׳ונגלים מעל קונוסים.',
+    total: '~20 דק׳',
     warmup: 'כדרור קל ונגיעות בסיסיות — 5 דק׳',
     blocks: [
       {
         label: 'חלק א׳',
         title: 'קופסת 1×1 מ׳',
+        total: '~11 דק׳',
         videoId: '1820919092644683',
         drills: [
-          { he: 'צעדים עם הסוליה',           en: 'sole steps',          reps: '30 שניות' },
-          { he: 'נגיעות פנים',                 en: 'inside taps',         reps: '30 שניות' },
-          { he: 'עצירות פנים',                 en: 'inside stops',        reps: '30 שניות' },
-          { he: 'עצירות עם השרוכים',         en: 'lace stops',          reps: '30 שניות' },
-          { he: 'פנים-חוץ',                    en: 'inside-outsiders',    reps: '30 שניות' },
-          { he: 'קרוקטות',                     en: 'croquetas',           reps: '30 שניות' },
-          { he: 'גלגולי כדור',                 en: 'ball rolls',          reps: '30 שניות' },
-          { he: 'פניות עם משיכה אחורה',     en: 'pull-back turns',     reps: '30 שניות' },
-          { he: 'פייקים חיצוניים',             en: 'outside fakes',       reps: '30 שניות' },
-          { he: 'העברות מזויפות',              en: 'fake passes',         reps: '30 שניות' },
-          { he: 'נגיעות V',                    en: 'V-taps',              reps: '30 שניות' },
+          { he: 'צעדים עם הסוליה',           en: 'sole steps',          reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'נגיעות פנים',                 en: 'inside taps',         reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'עצירות פנים',                 en: 'inside stops',        reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'עצירות עם השרוכים',         en: 'lace stops',          reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'פנים-חוץ',                    en: 'inside-outsiders',    reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'קרוקטות',                     en: 'croquetas',           reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'גלגולי כדור',                 en: 'ball rolls',          reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'פניות עם משיכה אחורה',     en: 'pull-back turns',     reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'פייקים חיצוניים',             en: 'outside fakes',       reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'העברות מזויפות',              en: 'fake passes',         reps: '30 שנ׳',  time: '~1 דק׳' },
+          { he: 'נגיעות V',                    en: 'V-taps',              reps: '30 שנ׳',  time: '~1 דק׳' },
         ],
       },
       {
         label: 'חלק ב׳',
         title: 'ז׳ונגלים מעל קונוסים',
+        total: '~3 דק׳',
         videoId: '1285755459720130',
         drills: [
-          { he: 'ז׳ונגלים מעל קונוסים',  en: 'juggling above cones',  reps: '3 × 20' },
+          { he: 'ז׳ונגלים מעל קונוסים',  en: 'juggling above cones',  reps: '3 × 20',  time: '~3 דק׳' },
         ],
       },
     ],
-    cooldown: 'מתיחות ארוכות — 5 דק׳',
   },
 };
 
@@ -335,7 +350,7 @@ function renderLanding() {
     el('p', { class: 'tag' }, 'דגש על טכניקה · אימון עצמאי עם כדור וקונוסים'),
     el('div', { class: 'stats' },
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ימים בשבוע'), el('div', { class: 'v' }, '5')),
-      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '~45 דק׳')),
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '~20–25 דק׳')),
       el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ציוד'), el('div', { class: 'v' }, 'כדור + קונוסים')),
     ),
   ));
@@ -344,6 +359,7 @@ function renderLanding() {
     root.appendChild(el('a', { class: 'card', href: '#/' + k },
       el('div', { class: 'card-head' },
         el('span', { class: 'pill' }, p.day),
+        el('span', { class: 'time-pill' }, p.total),
         el('h2', {}, p.title),
       ),
       el('p', { class: 'intro' }, p.intro),
@@ -359,7 +375,10 @@ function renderProgram(key) {
   const prog = el('div', { class: 'program' });
 
   prog.appendChild(el('div', { class: 'program-head' },
-    el('div', { class: 'card-head' }, el('span', { class: 'pill' }, p.day)),
+    el('div', { class: 'card-head' },
+      el('span', { class: 'pill' }, p.day),
+      el('span', { class: 'time-pill' }, p.total),
+    ),
     el('h2', {}, p.title),
     el('p', { class: 'intro' }, p.intro),
   ));
@@ -374,14 +393,16 @@ function renderProgram(key) {
     block.appendChild(el('div', { class: 'block-head' },
       el('span', { class: 'lbl' }, b.label + ' —'),
       el('span', { class: 'ttl' }, b.title),
+      el('span', { class: 'time-pill' }, b.total),
     ));
     const body = el('div', { class: 'block-body' });
     const ul = el('ul', { class: 'drills' });
     for (const d of b.drills) {
       ul.appendChild(el('li', {},
-        el('span', {}, d.he),
-        el('span', { class: 'en' }, ' (' + d.en + ')  '),
+        el('span', { class: 'he' }, d.he),
+        el('span', { class: 'en' }, '(' + d.en + ')'),
         el('span', { class: 'reps' }, d.reps),
+        el('span', { class: 'time' }, d.time),
       ));
     }
     body.appendChild(ul);
@@ -390,11 +411,6 @@ function renderProgram(key) {
     block.appendChild(body);
     prog.appendChild(block);
   }
-
-  prog.appendChild(el('div', { class: 'simple-row' },
-    el('div', { class: 'lbl' }, 'סיום'),
-    el('div', { class: 'txt' }, p.cooldown),
-  ));
 
   root.appendChild(prog);
   return root;
