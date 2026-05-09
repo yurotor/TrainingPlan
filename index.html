@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fafaf7">
+<title>תוכנית אימוני כדורגל שבועית</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --border: #e5e3dc;
+    --ink: #2a2a2a;
+    --muted: #777472;
+    --label: #908b85;
+    --pill-bg: #fde2dc;
+    --pill-ink: #b54935;
+    --accent: #b54935;
+    --accent-hover: #963c2c;
+    --shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 760px; margin: 0 auto; padding: 28px 18px 80px; }
+  header.site { text-align: center; margin: 8px 0 28px; }
+  header.site h1 { font-size: 28px; font-weight: 700; margin: 0 0 6px; }
+  header.site p.tag { color: var(--muted); margin: 0 0 18px; font-size: 15px; }
+  .stats {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px 16px; min-width: 110px; box-shadow: var(--shadow);
+  }
+  .stat .k { color: var(--label); font-size: 12px; font-weight: 500; }
+  .stat .v { font-size: 17px; font-weight: 600; margin-top: 2px; }
+
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 18px 16px; margin-bottom: 14px; box-shadow: var(--shadow);
+    text-decoration: none; color: inherit; display: block;
+    transition: border-color .15s, transform .15s;
+  }
+  a.card:hover { border-color: #cdc7be; }
+  a.card:active { transform: scale(.997); }
+
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+  .pill {
+    display: inline-block; background: var(--pill-bg); color: var(--pill-ink);
+    border-radius: 999px; padding: 3px 12px; font-size: 13px; font-weight: 600;
+  }
+  .card h2 { font-size: 19px; font-weight: 600; margin: 0; }
+  .card p.intro { color: var(--muted); font-size: 14px; margin: 6px 0 0; }
+
+  .program { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 22px 14px; box-shadow: var(--shadow); }
+  .program-head h2 { margin: 8px 0 6px; font-size: 22px; }
+  .program-head p.intro { color: var(--muted); margin: 0 0 16px; font-size: 15px; }
+
+  .items { border-top: 1px solid var(--border); }
+  .item { display: grid; grid-template-columns: 80px 1fr; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .item:last-child { border-bottom: 0; }
+  .item .lbl { color: var(--label); font-size: 14px; font-weight: 500; padding-top: 1px; }
+  .item .txt { font-size: 15.5px; }
+
+  .videos-block { margin-top: 22px; }
+  .videos-block h3 { font-size: 16px; font-weight: 600; margin: 0 0 12px; color: var(--muted); }
+  .video-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  a.video {
+    display: block; background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; text-decoration: none; color: inherit;
+    transition: transform .15s, border-color .15s;
+  }
+  a.video:hover { border-color: #cdc7be; }
+  a.video:active { transform: scale(.99); }
+  a.video .thumb { display: block; aspect-ratio: 1/1; background: #eee no-repeat center/cover; position: relative; }
+  a.video .thumb::after {
+    content: '▶'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%); color: white;
+    background: rgba(0,0,0,.55); width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 16px; padding-right: 3px;
+  }
+  a.video .meta { padding: 10px 12px 12px; }
+  a.video .uploader { font-size: 12.5px; color: var(--label); display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  a.video .desc { font-size: 14px; line-height: 1.4; }
+  a.video .desc.placeholder { color: var(--muted); font-style: italic; }
+
+  .back {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 500;
+    margin-bottom: 16px; padding: 6px 0;
+  }
+  .back:hover { color: var(--accent-hover); }
+
+  @media (max-width: 480px) {
+    main { padding: 18px 14px 60px; }
+    header.site h1 { font-size: 24px; }
+    .program { padding: 18px 16px 12px; }
+    .item { grid-template-columns: 64px 1fr; gap: 10px; }
+    .item .lbl { font-size: 13px; }
+    .item .txt { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const PROGRAMS = {
+  sunday: {
+    day: 'ראשון',
+    title: 'שליטה בכדור ונגיעות קצרות',
+    intro: 'בונה תחושת כדור, מהירות רגליים ונוחות עם שתי הרגליים. יום קל לפתיחת השבוע.',
+    items: [
+      ['חימום', 'נגיעות עם קצה הנעל, גלגול עם הסוליה — 5 דק׳'],
+      ['חלק א׳', 'העברות פנים-פנים, משיכות V, גלגול ודחיפה — 4×60 שניות'],
+      ['חלק ב׳', 'תרגיל "8" סביב 2 קונוסים, שתי רגליים — 6 חזרות'],
+      ['חלק ג׳', 'ז׳ונגלים במקום — מטרה: +50 עם כל רגל'],
+      ['סיום', 'הליכה קלה ומתיחות — 5 דק׳'],
+    ],
+  },
+  monday: {
+    day: 'שני',
+    title: 'כדרור ותרגילי 1 על 1',
+    intro: 'מתרגם את השליטה בכדור לתנועות אמיתיות מהמשחק. הקונוסים הם "המגנים".',
+    items: [
+      ['חימום', 'כדרור קל בריבוע 5×5 מ׳, שינוי כיוון כל 3 שניות — 5 דק׳'],
+      ['חלק א׳', 'סלאלום בין 6 קונוסים (מטר ביניהם), נגיעות פנים-חוץ — 6 חזרות עם כל רגל'],
+      ['חלק ב׳', 'תרגיל לכל קונוס: מספריים, סטפ-אובר, לה קרוקטה, פניית קרויף — 2 סטים'],
+      ['חלק ג׳', 'כדרור מהיר 15 מ׳ → חיתוך בקונוס → ספרינט חזרה — 6 חזרות'],
+      ['סיום', 'ז׳ונגלים ומתיחות — 5 דק׳'],
+    ],
+  },
+  tuesday: {
+    day: 'שלישי',
+    title: 'מסירות ונגיעה ראשונה (עבודה מול קיר)',
+    intro: 'צריך קיר — קיר בית, מחסן, או בית ספר. הכלי הכי חשוב באימון לבד.',
+    items: [
+      ['חימום', 'מסירות קלות מול הקיר, שתי רגליים — 5 דק׳'],
+      ['חלק א׳', 'מסירות בנגיעה אחת מול הקיר, 50 עם כל רגל ואז מתחלפים'],
+      ['חלק ב׳', 'קבלה ← חיתוך הצידה ← מסירה חזרה. 30 חזרות לכל צד.'],
+      ['חלק ג׳', 'לזרוק כדור לקיר ← לעצור באוויר עם ירך/חזה/רגל ← להחזיר. 20 חזרות.'],
+      ['סיום', 'מתיחות — 5 דק׳'],
+    ],
+  },
+  wednesday: {
+    day: 'רביעי',
+    title: 'סיומות ובעיטות לשער',
+    intro: 'צריך מטרה — שער, גדר, או שני קונוסים. טכניקה לפני כוח.',
+    items: [
+      ['חימום', 'כדרור קל ושליטה בכדור — 5 דק׳'],
+      ['חלק א׳', 'בעיטות מדויקות לפינות מנקודה קבועה — 10 עם כל רגל'],
+      ['חלק ב׳', 'כדרור בין 3 קונוסים ← סיומת — 10 עם כל רגל'],
+      ['חלק ג׳', 'חיתוך פנימה / חיתוך החוצה לפני הבעיטה — 10 לכל צד'],
+      ['סיום', 'ז׳ונגלים ומתיחות — 5 דק׳'],
+    ],
+  },
+  thursday: {
+    day: 'חמישי',
+    title: 'מהירות, זריזות ורגל חלשה',
+    intro: 'יום עוצמה גבוהה. כל החלק האחרון — רק רגל חלשה. הדבר הכי חשוב לגיל הזה.',
+    items: [
+      ['חימום', 'מתיחות דינמיות וריצה קלה — 5 דק׳'],
+      ['חלק א׳', 'סולם זריזות עם קונוסים (5 קונוסים, 50 ס"מ) — פנים-חוץ, צד, רגל אחת — 4 סטים'],
+      ['חלק ב׳', 'כדרור + ספרינט + שינוי כיוון — 8 חזרות'],
+      ['חלק ג׳', 'רגל חלשה בלבד: כדרור, מסירות לקיר, סיומת — 15 דק׳'],
+      ['סיום', 'מתיחות ארוכות, גוף מלא — 8 דק׳'],
+    ],
+  },
+};
+
+const ORDER = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday'];
+
+let VIDEOS = {};
+
+function fmtDuration(s) {
+  s = Math.round(s);
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return m > 0 ? m + ':' + String(r).padStart(2,'0') : '0:' + String(r).padStart(2,'0');
+}
+
+function el(tag, attrs, ...children) {
+  const e = document.createElement(tag);
+  for (const k in (attrs || {})) {
+    if (k === 'class') e.className = attrs[k];
+    else if (k === 'html') e.innerHTML = attrs[k];
+    else if (k.startsWith('on')) e.addEventListener(k.slice(2), attrs[k]);
+    else e.setAttribute(k, attrs[k]);
+  }
+  for (const c of children) {
+    if (c == null || c === false) continue;
+    e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+  }
+  return e;
+}
+
+function renderLanding() {
+  const root = el('div', {});
+  root.appendChild(el('header', { class: 'site' },
+    el('h1', {}, 'תוכנית אימוני כדורגל שבועית'),
+    el('p', { class: 'tag' }, 'דגש על טכניקה · אימון עצמאי עם כדור וקונוסים'),
+    el('div', { class: 'stats' },
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ימים בשבוע'), el('div', { class: 'v' }, '5')),
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'משך אימון'), el('div', { class: 'v' }, '45–60 דק׳')),
+      el('div', { class: 'stat' }, el('div', { class: 'k' }, 'ציוד'), el('div', { class: 'v' }, 'כדור + קונוסים')),
+    ),
+  ));
+  for (const k of ORDER) {
+    const p = PROGRAMS[k];
+    root.appendChild(el('a', { class: 'card', href: '#/' + k },
+      el('div', { class: 'card-head' },
+        el('span', { class: 'pill' }, p.day),
+        el('h2', {}, p.title),
+      ),
+      el('p', { class: 'intro' }, p.intro),
+    ));
+  }
+  return root;
+}
+
+function renderProgram(key) {
+  const p = PROGRAMS[key];
+  const vids = VIDEOS[key] || [];
+  const root = el('div', {});
+  root.appendChild(el('a', { class: 'back', href: '#/' }, '→ חזרה לכל התוכניות'));
+  const prog = el('div', { class: 'program' });
+  prog.appendChild(el('div', { class: 'program-head' },
+    el('div', { class: 'card-head' }, el('span', { class: 'pill' }, p.day)),
+    el('h2', {}, p.title),
+    el('p', { class: 'intro' }, p.intro),
+  ));
+  const items = el('div', { class: 'items' });
+  for (const [lbl, txt] of p.items) {
+    items.appendChild(el('div', { class: 'item' },
+      el('div', { class: 'lbl' }, lbl),
+      el('div', { class: 'txt' }, txt),
+    ));
+  }
+  prog.appendChild(items);
+
+  if (vids.length) {
+    const vb = el('div', { class: 'videos-block' });
+    vb.appendChild(el('h3', {}, 'סרטוני תרגול'));
+    const grid = el('div', { class: 'video-grid' });
+    for (const v of vids) {
+      const card = el('a', { class: 'video', href: v.url, target: '_blank', rel: 'noopener noreferrer' });
+      const thumb = el('span', { class: 'thumb' });
+      thumb.style.backgroundImage = "url('assets/thumbs/" + v.id + ".jpg')";
+      card.appendChild(thumb);
+      const meta = el('div', { class: 'meta' });
+      meta.appendChild(el('div', { class: 'uploader' },
+        el('span', {}, v.uploader),
+        el('span', {}, fmtDuration(v.duration)),
+      ));
+      const descClass = v.description ? 'desc' : 'desc placeholder';
+      meta.appendChild(el('div', { class: descClass }, v.description || 'צפה בפייסבוק'));
+      card.appendChild(meta);
+      grid.appendChild(card);
+    }
+    vb.appendChild(grid);
+    prog.appendChild(vb);
+  }
+
+  root.appendChild(prog);
+  return root;
+}
+
+function render() {
+  const route = (location.hash || '').replace(/^#\/?/, '');
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  if (PROGRAMS[route]) {
+    app.appendChild(renderProgram(route));
+  } else {
+    app.appendChild(renderLanding());
+  }
+  window.scrollTo(0, 0);
+}
+
+fetch('videos.json', { cache: 'no-cache' })
+  .then(r => r.ok ? r.json() : {})
+  .then(d => { VIDEOS = d || {}; })
+  .catch(() => { VIDEOS = {}; })
+  .finally(() => {
+    window.addEventListener('hashchange', render);
+    render();
+  });
+</script>
+</body>
+</html>
